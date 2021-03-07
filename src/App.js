@@ -1,8 +1,9 @@
+import React from 'react';
 
-function App() {
+const App = () => {
   return (
-    <div className="bg-gray-500">
-      <h1>asu</h1>
+    <div>
+      <h1>TEST</h1>
     </div>
   );
 }
