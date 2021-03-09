@@ -1,69 +1,64 @@
-import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Body = () => {
-
-  const [page , setPage] = useState(1);
+  const [page] = useState(1);
   const home = "https://mangamint.kaedenoki.net/api/manga/popular/";
-  const [url , setUrl] = useState( home + page);
+  const [url, setUrl] = useState(home + page);
   const [anime, setAnime] = useState(null);
-  const [isEnable, setEnable] = useState(false);
+  const [isEnable, setEnable] = useState(true);
 
-  const [isLoading, setLoading] = useState(true)
-  const [isError, setError] = useState(false)
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
 
-
-  const nextPage = () =>{
-    console.log('click +');
-    setPage(page+1);
-    setUrl(home + page);
+  const nextPage = () => {
+    console.log('next')
+    setLoading(true);
     setEnable(false);
-
-    console.log("click+++++++++")
-  }
-
-  
-  const previousPage =()=>{
-   console.log('click-')
-   if (page === 1 ){
-     setEnable(true);
-   }else{
-     setEnable(false);
-     setPage(page-1);
-     setUrl(home + page)
-   }
+    setUrl(home +(page+1));
     
-  } 
+  };
+
+  const previousPage = () => {
+    console.log('kembali')
+    if (page === 1){
+      setEnable(true)
+    }else{
+      setEnable(false);
+      setLoading(true)
+      setUrl(home + (page-1));
+    }
+      
+    };
 
   useEffect(() => {
     fetch(url)
-      .then(res => {
-        if(!res.ok){
-          console.log('error')
+      .then((res) => {
+        if (!res.ok) {
+          console.log("error");
         }
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         setAnime(data.manga_list);
         setLoading(false);
         setError(false);
-        console.log('url  =='+url);
+        console.log("url  ==", url);
       })
-      .catch(err =>{
+      .catch((err) => {
         setError(true);
         setLoading(false);
         console.log(err);
-        console.log("urlnya = " + url);
-      })
+        console.log("urlnya = ", url);
+      });
   }, [url]);
 
-
-    return (
-      <div className=" p-32 flex justify-center items-center">
-       {isError && <div>ERROR</div>} 
-       {isLoading && <div>loading......</div>}
-       {anime && <div className="py-3">
+  return (
+    <div className=" p-32 flex justify-center items-center">
+      {isError && <div>ERROR</div>}
+      {isLoading && <div>loading......</div>}
+      {!isLoading && anime && (
+        <div className="py-3">
           <div className="grid md:grid-cols-4 py-1 px-3 gap-3">
             {anime.map((anime) => (
               <div
@@ -103,9 +98,10 @@ const Body = () => {
               </button>
             </div>
           </div>
-        </div>}
-      </div>
-    );
-}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Body;
