@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Body = () => {
-  const [page] = useState(1);
+  const [page,setPage] = useState(0);
   const home = "https://mangamint.kaedenoki.net/api/manga/popular/";
   const [url, setUrl] = useState(home + page);
   const [anime, setAnime] = useState(null);
@@ -13,10 +13,10 @@ const Body = () => {
 
   const nextPage = () => {
     console.log('next')
+    setPage(page+1);
     setLoading(true);
     setEnable(false);
-    setUrl(home +(page+1));
-    
+    setUrl(home + page);
   };
 
   const previousPage = () => {
@@ -26,7 +26,8 @@ const Body = () => {
     }else{
       setEnable(false);
       setLoading(true)
-      setUrl(home + (page-1));
+      setPage(page-1)
+      setUrl(home+page );
     }
       
     };
@@ -43,15 +44,18 @@ const Body = () => {
         setAnime(data.manga_list);
         setLoading(false);
         setError(false);
-        console.log("url  ==", url);
+        if(page === 1){
+          setEnable(true);
+        }
+        console.log("url  ==" + url);
       })
       .catch((err) => {
         setError(true);
         setLoading(false);
         console.log(err);
-        console.log("urlnya = ", url);
+        console.log("urlnya = " + url);
       });
-  }, [url]);
+  }, [url,page]);
 
   return (
     <div className=" p-32 flex justify-center items-center">
