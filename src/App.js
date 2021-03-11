@@ -7,7 +7,7 @@ import PageNotFound from './page/PageNotFound';
 import Body from './page/Body';
 
 
-//  import useFetch from './hook/useFetch';
+//import useFetchAnime from './hook/useFetch';
 // import Loading from './components/Loading';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
