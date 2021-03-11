@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Body = () => {
-  const [page,setPage] = useState(0);
-  const home = "https://mangamint.kaedenoki.net/api/manga/popular/";
-  const [url, setUrl] = useState(home + page);
+  const [page, setPage] = useState(1);
+  const home ='https://mangamint.kaedenoki.net/api/manga/popular/';
+  // const [url] = useState(home + page);
   const [anime, setAnime] = useState(null);
   const [isEnable, setEnable] = useState(true);
 
@@ -12,28 +12,17 @@ const Body = () => {
   const [isError, setError] = useState(false);
 
   const nextPage = () => {
-    console.log('next')
-    setPage(page+1);
     setLoading(true);
-    setEnable(false);
-    setUrl(home + page);
+    setPage(page + 1);
   };
 
   const previousPage = () => {
-    console.log('kembali')
-    if (page === 1){
-      setEnable(true)
-    }else{
-      setEnable(false);
-      setLoading(true)
-      setPage(page-1)
-      setUrl(home+page );
-    }
-      
-    };
+    setLoading(true);
+    setPage(page-1);
+  };
 
   useEffect(() => {
-    fetch(url)
+    fetch(home + page)
       .then((res) => {
         if (!res.ok) {
           console.log("error");
@@ -44,18 +33,22 @@ const Body = () => {
         setAnime(data.manga_list);
         setLoading(false);
         setError(false);
-        if(page === 1){
+        if (page === 1) {
           setEnable(true);
+        }else{
+          setEnable(false);
         }
-        console.log("url  ==" + url);
+        console.log(
+          home + page
+        );
       })
       .catch((err) => {
         setError(true);
         setLoading(false);
         console.log(err);
-        console.log("urlnya = " + url);
+        console.log("urlnya = " + page);
       });
-  }, [url,page]);
+  }, [page]);
 
   return (
     <div className=" p-32 flex justify-center items-center">
@@ -94,6 +87,7 @@ const Body = () => {
               >
                 kembali
               </button>
+
               <button
                 onClick={nextPage}
                 className="bg-blue-500 rounded-md p-2 hover:bg-blue-300 "
