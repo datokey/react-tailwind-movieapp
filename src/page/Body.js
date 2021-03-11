@@ -51,12 +51,12 @@ const Body = () => {
   }, [page]);
 
   return (
-    <div className=" p-32 flex justify-center items-center">
+    <div className="md:p-32 sm:p-16 p-9 flex justify-center items-center">
       {isError && <div>ERROR</div>}
       {isLoading && <div>loading......</div>}
       {!isLoading && anime && (
-        <div className="py-3">
-          <div className="grid md:grid-cols-4 py-1 px-3 gap-3">
+        <div className="py-9">
+          <div className="grid md:grid-cols-4 grid-cols-5 gap-3">
             {anime.map((anime) => (
               <div
                 className="p-2 border-2 bg-white rounded-lg shadow-md hover:shadow-2xl h-full"
