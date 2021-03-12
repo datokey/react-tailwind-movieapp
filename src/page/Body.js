@@ -4,7 +4,9 @@ import useFetchListAnime from '../hook/useFetchListAnime'
 
 const Body = () => {
   const [page, setPage] = useState(1);
-  const category = "page/";
+  const [title, setTitle] = useState(null);
+  const [category, setCategory] = useState("page/");
+  const [isPopular, setPopular] = useState(false);
   const {dataAnime, isError, isEnable, isLoading} = useFetchListAnime(category, page);
    
   const nextPage = () => {
@@ -16,15 +18,32 @@ const Body = () => {
   };
 
   useEffect(()=>{
-    console.log('page = '+ page);
-  })
+    if(isPopular === false){
+      setCategory("page/");
+      setTitle("All Manga");
+    }else{
+      setCategory("popular/");
+      setTitle("popular Manga");
+    }
+  },[setCategory, isPopular]);
+
+  
 
   return (
     <div className="md:p-32 sm:p-16 p-9 flex justify-center items-center">
       {isError && <div>ERROR </div>}
-      { isLoading && <div>loading......</div>}
+      {isLoading && <div>loading......</div>}
       {!isLoading && dataAnime && (
         <div className="py-9">
+          <div className="flex ">
+            <div className="md:text-2xl text-lg font-bold mb-3">{title}</div>
+          <div className="ml-10">
+            <button
+            onClick={()=>setPopular(!isPopular)}
+            className="bg-blue-500 p-2 rounded-md"
+            >toogle</button>
+          </div>
+          </div>
           <div className="grid md:grid-cols-4 grid-cols-5 gap-3">
             {dataAnime.map((anime) => (
               <div
@@ -52,6 +71,7 @@ const Body = () => {
                 onClick={previousPage}
                 disabled={isEnable}
                 className=" bg-blue-500 rounded-md p-2 hover:bg-blue-300 
+                disabled:opacity-50 disabled:cursor-not-allowed
                 "
               >
                 kembali
