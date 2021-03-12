@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 
-const useFetchListAnime = (category) => {
+const useFetchListAnime = (category,page) => {
   const endPoint = "https://mangamint.kaedenoki.net/api/manga/";
   
-  const [page] = useState(1);
+//   const [page] = useState(1);
   const [dataAnime, setDataAnime] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
-  const [isEnable, setEnable] = useState(true);
+  const [isEnable, setEnable] = useState(false);
  //   category berisi popular dan all anime
   useEffect(() => {
+        setLoading(true);
         fetch(endPoint + category + page)
             .then(res => {
                 if (!res.ok) {
@@ -22,6 +23,11 @@ const useFetchListAnime = (category) => {
                 console.log(data);
                 setLoading(false);
                 setError(null);
+                if (page === 1){
+                    setEnable(true);
+                }else{
+                    setEnable(false);
+                };
             })
             .catch(err => {
                 setLoading(false);
@@ -30,7 +36,7 @@ const useFetchListAnime = (category) => {
             });
     },[category, page]);
 
-    return {dataAnime, isLoading, isError}
+    return {dataAnime, isLoading, isError, isEnable}
 }
 
 export default useFetchListAnime;
