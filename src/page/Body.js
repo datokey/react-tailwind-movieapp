@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
-import useFetchListAnime from '../hook/useFetchListAnime'
+import useFetchListMovie from "../hook/useFetchListMovie";
 
 const Body = () => {
   const [page, setPage] = useState(1);
-  const [title, setTitle] = useState(null);
-  const [category, setCategory] = useState("page/");
-  const [isPopular, setPopular] = useState(false);
-  const {dataAnime, isError, isEnable, isLoading} = useFetchListAnime(category, page);
-   
+  const [title] = useState(null);
+  const [pathName] = useState("latest");
+  const [parameter] = useState("?page=");
+  const { dataMovie, isError, isEnable, isLoading } = useFetchListMovie(
+    pathName,
+    parameter,
+    page
+  );
+
   const nextPage = () => {
     setPage(page + 1);
   };
@@ -17,51 +21,47 @@ const Body = () => {
     setPage(page - 1);
   };
 
-  useEffect(()=>{
-    if(isPopular === false){
-      setCategory("page/");
-      setTitle("All Manga");
-    }else{
-      setCategory("popular/");
-      setTitle("popular Manga");
-    }
-  },[setCategory, isPopular]);
-
-  
-
   return (
     <div className="md:p-32 sm:p-16 p-9 flex justify-center items-center">
       {isError && <div>ERROR </div>}
       {isLoading && <div>loading......</div>}
-      {!isLoading && dataAnime && (
+      {!isLoading && dataMovie && (
         <div className="py-9">
           <div className="flex ">
             <div className="md:text-2xl text-lg font-bold mb-3">{title}</div>
-          <div className="ml-10">
-            <button
-            onClick={()=>setPopular(!isPopular)}
-            className="bg-blue-500 p-2 rounded-md"
-            >toogle</button>
+            <div className="ml-10"></div>
           </div>
-          </div>
-          <div className="grid md:grid-cols-4 grid-cols-5 gap-3">
-            {dataAnime.map((anime) => (
-              <div
-                className="p-2 border-2 bg-white rounded-lg shadow-md hover:shadow-2xl h-full"
-                key={anime.thumb}
-              >
-                {/* <div className="py-24 px-20 text-center border border-red-700">Foto</div> */}
-                <Link to={"#"}>
-                  <img
-                    src={anime.thumb}
-                    alt={anime.title}
-                    className="rounded w-full h-auto sm:h-42"
-                  />
-                  <div className="text-right font-bold">{anime.title}</div>
-                  <div className="text-right font-extralight text-xs">
-                    {anime.upload_on}
+          <div className="grid md:grid-cols-4 grid-cols-5 gap-5">
+            {dataMovie.map((m) => (
+              <div className="rounded-lg shadow-2xl bg-white overflow-hidden">
+                <div className="flex flex-col">
+                  <div>
+                    <img
+                      className="w-full max-h-72 sm:h-42"
+                      src={m.thumbnailPotrait}
+                      alt={m.title}
+                    />
                   </div>
-                </Link>
+                  <div className="flex justify-end p-3 text-right font-bold text-lg h-16">
+                    {m.title}
+                  </div>
+                  <div className="flex justify-between mt-4">
+                    <a
+                      className="w-1/2 py-3 border-t-2 border-r-2 border-black text-xl flex justify-center items-center"
+                      href={m.detail.trailer}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Trailer
+                    </a>
+                    <Link
+                      className="w-1/2 py-3 text-xl flex justify-center items-center bg-black text-white"
+                      to={"download/" + m.title + "/" + m.movieId}
+                    >
+                      download
+                    </Link>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

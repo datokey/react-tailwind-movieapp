@@ -1,7 +1,6 @@
 // import Home from './page/Home';
 import Navbar from './components/Navbar';
 import About from './page/About';
-import Detail from './page/Detail';
 import Create from './page/Create';
 import PageNotFound from './page/PageNotFound';
 import Body from './page/Body';
@@ -10,6 +9,8 @@ import Body from './page/Body';
 //import useFetchAnime from './hook/useFetch';
 // import Loading from './components/Loading';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import DetailMovie from "./page/DetailMovie";
+import DownloadMovie from './page/DownloadMovie';
 
 const App = () => {
 
@@ -35,10 +36,13 @@ const App = () => {
             <About />
           </Route>
           <Route path="/detail/:id">
-            <Detail />
+            <DetailMovie/>
           </Route>
           <Route path="/Create">
             <Create />
+          </Route>
+          <Route path="/download/:title/:id">
+              <DownloadMovie/>
           </Route>
           <Route path="*">
             <PageNotFound />

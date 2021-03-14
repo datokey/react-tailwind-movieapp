@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 
-const useFetchListAnime = (category,page) => {
-  const endPoint = "https://mangamint.kaedenoki.net/api/manga/";
+const useFetchListAnime = (pathName, paramater, page) => {
+  const endPoint = "https://api-filmapik.herokuapp.com/";
   
 //   const [page] = useState(1);
-  const [dataAnime, setDataAnime] = useState(null);
+  const [dataMovie, setDataMovie] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
   const [isEnable, setEnable] = useState(false);
  //   category berisi popular dan all anime
   useEffect(() => {
         setLoading(true);
-        fetch(endPoint + category + page)
+        console.log(endPoint + pathName + paramater + page);
+        fetch(endPoint + pathName + paramater + page)
             .then(res => {
                 if (!res.ok) {
                     throw Error('Tidak Bisa Memuat Data');
@@ -19,8 +20,8 @@ const useFetchListAnime = (category,page) => {
                 return res.json();
             })
             .then(data => {
-                setDataAnime(data.manga_list);
-                console.log(data);
+                setDataMovie(data.result);
+                console.log(data.result);
                 setLoading(false);
                 setError(null);
                 if (page === 1){
@@ -34,9 +35,9 @@ const useFetchListAnime = (category,page) => {
                 setError(err.message);
                 console.log(err.message)
             });
-    },[category, page]);
+    },[ page, pathName, paramater]);
 
-    return {dataAnime, isLoading, isError, isEnable}
+    return {dataMovie, isLoading, isError, isEnable}
 }
 
 export default useFetchListAnime;
