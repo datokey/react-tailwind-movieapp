@@ -3,7 +3,7 @@ import { SearchContext } from '../contexts/SearchContext';
 import { useParams } from "react-router-dom";
 
  const SearchResult = () => {
-     const { searching, movie } = useContext(SearchContext);
+     const { searching, movie, isLoading, isDataAvail } = useContext(SearchContext);
      const { title } = useParams();
 
      useEffect(() => {
@@ -12,17 +12,21 @@ import { useParams } from "react-router-dom";
         console.log("m====> "+movie);
      }, [title]);
 
-     return movie !== null ? (
+     return (
        <div className="flex justify-center items-center flex-col">
-            {movie.map((m)=>(
-                <a href="">{m.title}</a>
-            ))}
+         {isLoading && <div>---Loading---</div>}
+         {!isDataAvail && !isLoading && <div>Film Tidak Ditemukan </div>}
+         {!isLoading && isDataAvail && movie && (
+           <div>
+             {movie.map((m) => (
+               <ul>
+                 <li>{m.title}</li>
+               </ul>
+             ))}
+           </div>
+         )}
        </div>
-     ):(
-         <div className="flex justify-center items-center">
-              Film tidak ditemukan
-              </div>
-     )
+     );
  }
   
  export default SearchResult;
