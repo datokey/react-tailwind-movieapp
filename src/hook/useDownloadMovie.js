@@ -13,8 +13,7 @@ const useDownloadMovie = (id) =>{
         .then((res)=>{
             setUrlDownload(res.data.link)
             console.log(res.data)
-        }
-        )
+        })
     },[id])
 
     return {urlDownload};

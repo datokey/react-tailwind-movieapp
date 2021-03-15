@@ -5,11 +5,12 @@ import useFetchListMovie from "../hook/useFetchListMovie";
 const Body = () => {
   const [page, setPage] = useState(1);
   const [title] = useState(null);
-  const [pathName] = useState("latest");
-  const [parameter] = useState("?page=");
+  const [initialPathName, setInitialPathName] = useState("latest");
+  const [initialParamater, setInitialParamater] = useState("?page=");
+
   const { dataMovie, isError, isEnable, isLoading } = useFetchListMovie(
-    pathName,
-    parameter,
+    initialPathName,
+    initialParamater,
     page
   );
 
@@ -31,7 +32,7 @@ const Body = () => {
             <div className="md:text-2xl text-lg font-bold mb-3">{title}</div>
             <div className="ml-10"></div>
           </div>
-          <div className="grid md:grid-cols-4 grid-cols-5 gap-5">
+          <div className="grid lg:grid-cols-4 grid-cols-2 gap-5">
             {dataMovie.map((m) => (
               <div className="rounded-lg shadow-2xl bg-white overflow-hidden">
                 <div className="flex flex-col">
