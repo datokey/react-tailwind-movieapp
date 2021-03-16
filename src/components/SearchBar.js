@@ -15,17 +15,18 @@ const Search = () => {
 
   return (
     <div>
-        <input
+      <form>
+         <input
           type="text"
-          id="searchfield"
           value={search}
-          className="text-xs"
-          onChange={(e) => setSearch(e.target.value)}
-          className="p-2 "
+          className="text-xs p-2"
+          onChange={(e) => setSearch(e.target.value)} 
         />
 
-        <input type="submit" for="searchfield" onClick={handleButton} className="cursor-pointer 
+        <input type="submit"  onClick={handleButton} value="Cari" className="cursor-pointer 
          p-2 bg-blue-300 rounded" />
+      </form>
+       
       
     </div>
   );

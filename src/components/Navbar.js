@@ -11,9 +11,9 @@ const Navbar = () => {
               Home
             </h3>
           </Link>
-          <Link to="/about" className="border-r-2 border-gray-700 pr-3 ">
+          <Link to="/genre" className="border-r-2 border-gray-700 pr-3 ">
             <h3 className="hover:bg-gray-700 hover:text-gray-200 rounded-xl p-1">
-              About
+              Genres
             </h3>
           </Link>
           <Link to="/create" className=" pr-3 ">

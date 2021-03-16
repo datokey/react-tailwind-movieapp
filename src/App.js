@@ -1,5 +1,4 @@
-import Navbar from './components/Navbar';
-import About from './page/About';
+import Navbar from './components/Navbar'; 
 import Create from './page/Create';
 import PageNotFound from './page/PageNotFound';
 import Body from './page/Body';
@@ -9,6 +8,7 @@ import DownloadMovie from './page/DownloadMovie';
 import SearchResult from './page/SearchResult';
 
 import SearchContextProvider from './contexts/SearchContext'
+import Genres from './page/Genres';
 
 const App = () => {
   return (
@@ -26,8 +26,8 @@ const App = () => {
               {/* {data && <Body data={data.manga_list} />} */}
               {/* {dataMovie <Body data={dataMovie} title="Anime" />} */}
             </Route>
-            <Route path="/about">
-              <About />
+            <Route path="/genre">
+              <Genres />
             </Route>
             <Route path="/detail/:id">
               <DetailMovie />

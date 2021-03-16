@@ -11,6 +11,7 @@ const SearchContextProvider = (props) =>{
     // https://api-filmapik.herokuapp.com/search?q=avenger
     const searching = (title) =>{
        setLoading(true);
+       setDataAvail(false);
        axios.get(url + title)
        .then((res)=>{
             if (res.data.length === "0"){
