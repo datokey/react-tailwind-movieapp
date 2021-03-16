@@ -15,9 +15,17 @@ import { useParams, Link } from "react-router-dom";
      return (
        <div className="flex justify-center items-center flex-col">
          {isLoading && <div>---Loading---</div>}
-         {!isDataAvail && !isLoading && <div>Film Tidak Ditemukan </div>}
+         {!isDataAvail && !isLoading && (
+           <div
+             className="animate-bounce
+         bg-red-500 text-white p-3 rounded text-2xl"
+           >
+             Film {title} Tidak Ditemukan{" "}
+           </div>
+         )}
          {!isLoading && isDataAvail && movie && (
-           <div className="pt-5 md:p-20">
+           <div className="pt-10 md:p-28 p-10">
+             <h1 className="text-2xl font-bold p-5">Hasil Pencarian {title}</h1>
              <div className="grid lg:grid-cols-4 grid-cols-2 gap-5">
                {movie.map((m) => (
                  <div className="rounded-lg shadow-2xl bg-white overflow-hidden">
