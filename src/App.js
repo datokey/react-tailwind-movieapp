@@ -16,12 +16,14 @@ import GenreContextProvider  from './contexts/GenreContext'
 const App = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen justify-between bg-gray-300 font-body">
+      <div className="flex flex-col min-h-screen justify-between relative
+      bg-gray-300 font-body">
         <SearchContextProvider>
           <GenreContextProvider>
             {/* navbar */}
             <Navbar />
             {/* body */}
+            <Genre/>
             <Switch>
               {/* body page */}
               <Route exact path="/">
@@ -40,9 +42,6 @@ const App = () => {
               </Route>
               <Route path="/search/:title">
                 <SearchResult />
-              </Route>
-              <Route path="/genre">
-                <Genre/>
               </Route>
               <Route path="*">
                 <PageNotFound />

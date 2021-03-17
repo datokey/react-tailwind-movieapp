@@ -7,10 +7,13 @@ const GenreContextProvider = (props) =>{
     const [genre, setGenre] = useState('');
     const [param] = useState('&page=')
     const url = "https://api-filmapik.herokuapp.com/category?search=";
+    const [isView, setView] = useState(false)
+
+    const TogleView = (bol) =>{
+        setView(bol)
+    }
 
     const [ListGenre] = useState([
-     
-
         {id:1, genre: "Action" },
         {id:12, genre: "Comedy" },
         {id:13, genre: "Drama" },
@@ -30,7 +33,8 @@ const GenreContextProvider = (props) =>{
     };
 
     return (
-        <GenreContext.Provider value={{genre, SearchGenre, ListGenre}}>
+        <GenreContext.Provider value={{genre, SearchGenre,
+         ListGenre,TogleView ,isView}}>
             {props.children}
         </GenreContext.Provider>
     )

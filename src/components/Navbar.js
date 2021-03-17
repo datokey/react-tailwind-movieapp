@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Search from "./SearchBar";
-
+import GenreOption from "./GenreOption";
 
 const Navbar = () => {
     return (
@@ -11,11 +11,11 @@ const Navbar = () => {
               Home
             </h3>
           </Link>
-          <Link to="/genre" className="border-r-2 border-gray-700 pr-3 ">
+          <div className="border-r-2 border-gray-700 pr-3 ">
             <h3 className="hover:bg-gray-700 hover:text-gray-200 rounded-xl p-1">
-              Genres
+              <GenreOption/>
             </h3>
-          </Link>
+          </div>
           <Link to="/create" className=" pr-3 ">
             <h3 className="hover:bg-gray-700 hover:text-gray-200 rounded-xl p-1 ">
               Create
