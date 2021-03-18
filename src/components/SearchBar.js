@@ -9,7 +9,7 @@ const Search = () => {
      if(search ===''){
        alert("masukan kata kunci")
      }else{
-        history.push("/Search/"+search);
+        history.push("/Search/title/"+search);
      }
    }
 

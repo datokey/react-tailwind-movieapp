@@ -5,8 +5,8 @@ import useFetchListMovie from "../hook/useFetchListMovie";
 const Body = () => {
   const [page, setPage] = useState(1);
   const [title] = useState(null);
-  const [initialPathName, setInitialPathName] = useState("latest");
-  const [initialParamater, setInitialParamater] = useState("?page=");
+  const [initialPathName] = useState("latest");
+  const [initialParamater] = useState("?page=");
 
   const { dataMovie, isError, isEnable, isLoading } = useFetchListMovie(
     initialPathName,

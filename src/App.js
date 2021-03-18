@@ -40,7 +40,7 @@ const App = () => {
               <Route path="/download/:title/:id">
                 <DownloadMovie />
               </Route>
-              <Route path="/search/:title">
+              <Route path="/search/:search/:param">
                 <SearchResult />
               </Route>
               <Route path="*">

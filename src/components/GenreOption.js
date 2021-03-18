@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GenreContext } from "../contexts/GenreContext";
+import { SearchContext } from "../contexts/SearchContext";
 
 const GenreOption = () => {
-  const { isView, TogleView } = useContext(GenreContext);
+  const { isView, TogleView } = useContext(SearchContext);
   // const [showList] = useState(true);
 
   const handleButton=()=>{
