@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 export const SearchContext = createContext();
@@ -26,11 +26,17 @@ const SearchContextProvider = (props) =>{
     //disable buton page
     const [isDisable, setDisable] = useState(true)
 
+    //set Genre
+    const [genre, setGenre] =useState(" ");
+
+    // set maximal item yang ditampilkan
+    const maxPage = "&maxResult=20";
+
      //searcing title
     const searching = (title) =>{
        setLoading(true);
        setDataAvail(false);
-       axios.get(url + title)
+       axios.get(url + title )
        .then((res)=>{
             if (res.data.length === "0"){
                 setLoading(false);
@@ -60,11 +66,12 @@ const SearchContextProvider = (props) =>{
     }
 
     //searchiing genre moveies
-    const SearchGenre=(genre)=>{
+    const SearchGenre=(gen)=>{
+        setGenre(gen)
         setView(false)
         setLoading(true);
         setDataAvail(false);
-        axios.get(genreUrl+genre+param+page)
+        axios.get(genreUrl+genre+param+page +maxPage)
             .then((res)=>{
                 if (res.data.length === "0") {
                   setLoading(false);
@@ -86,7 +93,7 @@ const SearchContextProvider = (props) =>{
     }
 
 
-    //handel page 
+    //handel page change
     const nextPage=()=>{
         setPage(page+1)
     }
@@ -94,6 +101,32 @@ const SearchContextProvider = (props) =>{
     const prevPage=()=>{
         setPage(page-1)
     }
+
+    useEffect(()=>{
+        setView(false);
+        setLoading(true);
+        setDataAvail(false);
+        axios.get(genreUrl + genre + param + page + maxPage)
+        .then((res) => {
+          if (res.data.length === "0") {
+            setLoading(false);
+            setMovie(null);
+            setDataAvail(false);
+            console.log("tidak ada data");
+          } else {
+            setLoading(false);
+            setMovie(res.data.result);
+            setDataAvail(true);
+            if (page === 1) {
+              setDisable(true);
+            } else {
+              setDisable(false);
+            }
+            console.log("ada data");
+          }
+        });
+    },[genre, page])
+
 
     return(
         <SearchContext.Provider value={{movie, searching, isLoading ,

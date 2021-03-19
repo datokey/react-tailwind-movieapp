@@ -8,11 +8,12 @@ const useFetchListAnime = (pathName, paramater, page) => {
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
   const [isEnable, setEnable] = useState(false);
+  const maxResult = "&maxResult=20"
  //   category berisi popular dan all anime
   useEffect(() => {
         setLoading(true);
-        console.log(endPoint + pathName + paramater + page);
-        fetch(endPoint + pathName + paramater + page)
+        console.log(endPoint + pathName + paramater + page + maxResult);
+        fetch(endPoint + pathName + paramater + page + maxResult)
             .then(res => {
                 if (!res.ok) {
                     throw Error('Tidak Bisa Memuat Data');

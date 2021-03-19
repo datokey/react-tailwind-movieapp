@@ -66,7 +66,24 @@ const Body = () => {
               </div>
             ))}
           </div>
-          <div className="flex justify-center w-full pt-7">
+
+          <div className="flex justify-center space-x-6 pt-14">
+            <button
+              className="bg-black disabled:opacity-50 text-white p-2 rounded "
+              disabled={isEnable}
+              onClick={previousPage}
+            >
+              Kembali
+            </button>
+            <p> {page}</p>
+            <button
+              onClick={nextPage}
+              className="bg-black text-white p-2 rounded "
+            >
+              Selanjutnya
+            </button>
+          </div>
+          {/* <div className="flex justify-center w-full pt-7">
             <div className="w-1/2  flex justify-between">
               <button
                 onClick={previousPage}
@@ -85,7 +102,7 @@ const Body = () => {
                 selanjutnya
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

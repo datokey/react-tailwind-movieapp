@@ -12,6 +12,7 @@ const SearchResult = () => {
     nextPage,
     prevPage,
     isDisable,
+    page
   } = useContext(SearchContext);
   const { search, param } = useParams();
 
@@ -21,9 +22,7 @@ const SearchResult = () => {
     } else {
       SearchGenre(param);
     }
-    console.log("t====> " + param);
-    console.log("m====> " + movie);
-  }, [param]);
+  }, [search, param, SearchGenre , searching ]);
 
   return (
     <div className="flex justify-center items-center flex-col">
@@ -73,7 +72,7 @@ const SearchResult = () => {
               </div>
             ))}
           </div>
-          <div className="flex justify-center space-x-6 pt-5">
+          <div className="flex justify-center space-x-6 pt-14">
             <button
               className="bg-black disabled:opacity-50 text-white p-2 rounded "
               disabled={isDisable}
@@ -81,7 +80,7 @@ const SearchResult = () => {
             >
               Kembali
             </button>
-           
+            <p> {page}</p>
             <button
               onClick={nextPage}
               className="bg-black text-white p-2 rounded "

@@ -3,8 +3,6 @@ import { SearchContext } from "../contexts/SearchContext";
 
 const GenreOption = () => {
   const { isView, TogleView } = useContext(SearchContext);
-  // const [showList] = useState(true);
-
   const handleButton=()=>{
       TogleView(!isView);
   }
@@ -13,7 +11,7 @@ const GenreOption = () => {
     <div>
       <button 
       onClick={handleButton}
-      className="bg-blue-800 p-3">Genre</button>
+      className="bg-blue-200 p-3 h-full w-full">Genre</button>
     </div>
   );
 };
