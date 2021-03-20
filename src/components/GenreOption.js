@@ -10,8 +10,7 @@ const GenreOption = () => {
   return (
     <button
       onClick={handleButton}
-      className="p-4 font-semibold flex items-center focus:outline-none
-        justify-center h-full hover:text-black hover:bg-white"
+      className="flex items-center justify-center h-full p-4 font-semibold focus:outline-none hover:text-black hover:bg-white"
     >
       Genre
     </button>
