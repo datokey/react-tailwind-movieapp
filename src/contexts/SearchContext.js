@@ -65,6 +65,11 @@ const SearchContextProvider = (props) =>{
         setView(!isView)
     }
 
+    //hide genre list
+    const HideGenre=()=>{
+        setView(false)
+    }
+
     //searchiing genre moveies
     const SearchGenre=(gen)=>{
         setGenre(gen)
@@ -131,7 +136,7 @@ const SearchContextProvider = (props) =>{
     return(
         <SearchContext.Provider value={{movie, searching, isLoading ,
          isDataAvail, SearchGenre, TogleView, isView, isDisable,
-         nextPage, prevPage, page
+         nextPage, prevPage, page, HideGenre
          }}>
             {props.children}
         </SearchContext.Provider>

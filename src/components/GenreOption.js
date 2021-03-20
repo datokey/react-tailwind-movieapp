@@ -2,17 +2,19 @@ import React, { useContext } from "react";
 import { SearchContext } from "../contexts/SearchContext";
 
 const GenreOption = () => {
-  const { isView, TogleView } = useContext(SearchContext);
+  const { TogleView } = useContext(SearchContext);
   const handleButton=()=>{
-      TogleView(!isView);
+      TogleView();
   }
 
   return (
-    <div>
-      <button 
+    <button
       onClick={handleButton}
-      className="bg-blue-200 p-3 h-full w-full">Genre</button>
-    </div>
+      className="p-4 font-semibold flex items-center focus:outline-none
+        justify-center h-full hover:text-black hover:bg-white"
+    >
+      Genre
+    </button>
   );
 };
 

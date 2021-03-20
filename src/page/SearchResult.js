@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { SearchContext } from "../contexts/SearchContext";
 import { useParams, Link } from "react-router-dom";
+import Loading from "../components/Loading"
+
 
 const SearchResult = () => {
   const {
@@ -26,7 +28,7 @@ const SearchResult = () => {
 
   return (
     <div className="flex justify-center items-center flex-col">
-      {!isDataAvail && isLoading && <div>Mencari {param}</div>}
+      {!isDataAvail && isLoading && <div><Loading/></div>}
       {!isDataAvail && !isLoading && (
         <div
           className="animate-bounce

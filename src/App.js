@@ -10,14 +10,17 @@ import Genre from './page/Genres';
 //react router dom
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // context provider 
-import SearchContextProvider from './contexts/SearchContext'
-import GenreContextProvider  from './contexts/GenreContext'
+import SearchContextProvider from './contexts/SearchContext';
+import GenreContextProvider  from './contexts/GenreContext';
 
 const App = () => {
+ 
+
   return (
+    <>
     <Router>
       <div className="flex flex-col min-h-screen justify-between relative
-      bg-gray-300 font-body">
+      bg-gray-600 font-body">
         <SearchContextProvider>
           <GenreContextProvider>
             {/* navbar */}
@@ -43,6 +46,7 @@ const App = () => {
               <Route path="/search/:search/:param">
                 <SearchResult />
               </Route>
+               
               <Route path="*">
                 <PageNotFound />
               </Route>
@@ -56,6 +60,7 @@ const App = () => {
         </SearchContextProvider>
       </div>
     </Router>
+    </>
   );
 }
 

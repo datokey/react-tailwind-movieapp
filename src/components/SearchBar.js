@@ -19,12 +19,12 @@ const Search = () => {
          <input
           type="text"
           value={search}
-          className="text-xs p-2"
+          className="text-xs p-2 rounded-xl rounded-r-none"
           onChange={(e) => setSearch(e.target.value)} 
         />
-
-        <input type="submit"  onClick={handleButton} value="Cari" className="cursor-pointer 
-         p-2 bg-blue-300 rounded" />
+        <input type="submit"  onClick={handleButton} value="Cari"
+         className="cursor-pointer 
+         p-2 bg-blue-400 rounded font-semibold"  />
       </form>
        
       

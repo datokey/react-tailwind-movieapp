@@ -1,6 +1,9 @@
-import React, { useState} from "react";
+import React, { useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import useFetchListMovie from "../hook/useFetchListMovie";
+import Loading from "../components/Loading";
+import { SearchContext } from "../contexts/SearchContext";
+
 
 const Body = () => {
   const [page, setPage] = useState(1);
@@ -14,6 +17,8 @@ const Body = () => {
     page
   );
 
+const { HideGenre } = useContext(SearchContext);
+
   const nextPage = () => {
     setPage(page + 1);
   };
@@ -23,9 +28,10 @@ const Body = () => {
   };
 
   return (
-    <div className="md:p-32 sm:p-16 p-9 flex justify-center items-center">
+    <div onClick={HideGenre} className="md:p-32 sm:p-16 p-9 flex  justify-center items-center">
+   
       {isError && <div>ERROR </div>}
-      {isLoading && <div>loading......</div>}
+      {isLoading && <div><Loading/></div>}
       {!isLoading && dataMovie && (
         <div className="py-9">
           <div className="flex ">
