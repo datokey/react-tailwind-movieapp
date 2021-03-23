@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../contexts/SearchContext";
 import { useParams, Link } from "react-router-dom";
 import Loading from "../components/Loading"
@@ -6,7 +6,7 @@ import Loading from "../components/Loading"
 
 const SearchResult = () => {
   const {
-    SearchGenre,
+    Genre,
     searching,
     movie,
     isLoading,
@@ -16,33 +16,36 @@ const SearchResult = () => {
     isDisable,
     page
   } = useContext(SearchContext);
+  
   const { search, param } = useParams();
 
   useEffect(() => {
     if (search === "title") {
       searching(param);
     } else {
-      SearchGenre(param);
+     Genre(param);
     }
-  }, [search, param, SearchGenre , searching ]);
-
+    // eslint-disable-next-line 
+  }, [search, param]);
+  
   return (
-    <div className="flex justify-center items-center flex-col">
-      {!isDataAvail && isLoading && <div><Loading/></div>}
-      {!isDataAvail && !isLoading && (
-        <div
-          className="animate-bounce
-         bg-red-500 text-white p-3 rounded text-2xl"
-        >
-          Film {param} Tidak Ditemukan
+    <div className="flex flex-col items-center justify-center">
+      {!movie && isLoading && (
+        <div>
+          <Loading />
         </div>
       )}
+       {!isDataAvail && !isLoading &&  (
+            <div className="p-3 text-2xl text-white bg-red-500 rounded animate-bounce">
+              Film {param} Tidak Ditemukan
+            </div>
+          )}
       {!isLoading && isDataAvail && movie && (
-        <div className="pt-10 md:p-28 p-10">
-          <h1 className="text-2xl font-bold p-5">Hasil Pencarian {param}</h1>
-          <div className="grid lg:grid-cols-4 grid-cols-2 gap-5">
+        <div className="p-10 pt-10 md:p-28">
+          <h1 className="p-5 text-2xl font-bold">Hasil Pencarian {param}</h1>
+          <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
             {movie.map((m) => (
-              <div className="rounded-lg shadow-2xl bg-white overflow-hidden">
+              <div className="overflow-hidden bg-white rounded-lg shadow-2xl">
                 <div className="flex flex-col">
                   <div>
                     <img
@@ -51,12 +54,12 @@ const SearchResult = () => {
                       alt={m.title}
                     />
                   </div>
-                  <div className="flex justify-end p-3 text-right font-bold text-lg h-20">
+                  <div className="flex justify-end h-20 p-3 text-lg font-bold text-right">
                     {m.title}
                   </div>
                   <div className="flex justify-between mt-4">
                     <a
-                      className="w-1/2 py-3 border-t-2 border-r-2 border-black text-xl flex justify-center items-center"
+                      className="flex items-center justify-center w-1/2 py-3 text-xl border-t-2 border-r-2 border-black"
                       href={m.detail.trailer}
                       target="_blank"
                       rel="noreferrer"
@@ -64,7 +67,7 @@ const SearchResult = () => {
                       Trailer
                     </a>
                     <Link
-                      className="w-1/2 py-3 text-xl flex justify-center items-center bg-black text-white"
+                      className="flex items-center justify-center w-1/2 py-3 text-xl text-white bg-black"
                       to={"download/" + m.title + "/" + m.movieId}
                     >
                       download
@@ -76,7 +79,7 @@ const SearchResult = () => {
           </div>
           <div className="flex justify-center space-x-6 pt-14">
             <button
-              className="bg-black disabled:opacity-50 text-white p-2 rounded "
+              className="p-2 text-white bg-black rounded disabled:opacity-50 "
               disabled={isDisable}
               onClick={prevPage}
             >
@@ -85,7 +88,7 @@ const SearchResult = () => {
             <p> {page}</p>
             <button
               onClick={nextPage}
-              className="bg-black text-white p-2 rounded "
+              className="p-2 text-white bg-black rounded "
             >
               Selanjutnya
             </button>

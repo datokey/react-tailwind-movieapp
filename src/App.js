@@ -6,7 +6,7 @@ import Body from './page/Body';
 import DetailMovie from "./page/DetailMovie";
 import DownloadMovie from './page/DownloadMovie';
 import SearchResult from './page/SearchResult';
-import Genre from './page/Genres';
+
 //react router dom
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // context provider 
@@ -19,14 +19,13 @@ const App = () => {
   return (
     <>
     <Router>
-      <div className="flex flex-col min-h-screen justify-between relative
-      bg-gray-600 font-body">
+      <div className="relative flex flex-col justify-between min-h-screen bg-gray-600 font-body">
         <SearchContextProvider>
           <GenreContextProvider>
             {/* navbar */}
             <Navbar />
             {/* body */}
-            <Genre/>
+           
             <Switch>
               {/* body page */}
               <Route exact path="/">
@@ -54,7 +53,7 @@ const App = () => {
 
             {/* footer */}
             <div className="flex items-center justify-center">
-              <h3 className="font-serif p-3 text-xl">Footer</h3>
+              <h3 className="p-3 font-serif text-xl">Footer</h3>
             </div>
           </GenreContextProvider>
         </SearchContextProvider>

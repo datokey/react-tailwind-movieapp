@@ -1,46 +1,35 @@
-import React, { createContext, useState } from 'react';
-import axios from 'axios';
+import React, { createContext, useState } from "react";
 
 export const GenreContext = createContext();
 
-const GenreContextProvider = (props) =>{
-    const [genre, setGenre] = useState('');
-    const [param] = useState('&page=')
-    const url = "https://api-filmapik.herokuapp.com/category?search=";
-    // const [isView, setView] = useState(false)
+const GenreContextProvider = (props) => {
 
-    // const TogleView = (bol) =>{
-    //   setView(bol);
-    //   console.log(isView);
-    //   console.log("props===> "+bol)
-    // }
+  const [ListGenre] = useState([
+    {id:1, genre:"Genre", value:""},
+    { id: 11, genre: "Action" ,value:"Action"},
+    { id: 12, genre: "Comedy",value:"Comedy" },
+    { id: 13, genre: "Drama",value:"Drama" },
+    { id: 14, genre: "Fantasy",value:"Fantasy" },
+    { id: 15, genre: "Horor",value:"Horor" },
+    { id: 16, genre: "Mystery" ,value:"Mystery"},
+    { id: 17, genre: "Thriller" ,value:"Thriller"},
+    { id: 18, genre: "Romance",value:"Romance" },
+    { id: 19, genre: "History",value:"History" },
+    { id: 20, genre: "Western" ,value:"Western"},
+    { id: 21, genre: "Sci-fi",value:"Sci-fi" },
+    { id: 22, genre: "Animation",value:"Animasi" },
+    { id: 23, genre: "War" ,value:"war"},
+  ]);
 
-    const [ListGenre] = useState([
-        {id:1, genre: "Action" },
-        {id:12, genre: "Comedy" },
-        {id:13, genre: "Drama" },
-        {id:14, genre: "Fantasy" },
-        {id:15, genre: "Horor" },
-        {id:16, genre: "Mystery" },
-        {id:17, genre: "Thriller" },
-        {id:18, genre: "Romance" },
-        {id:19, genre: "History" },
-    ]);
-
-    const SearchGenre = (genreSearch, page) =>{
-       axios.get(url + genreSearch + param + page)
-       .then((res) => {
-         setGenre(res.data);
-       }); 
-    };
-
-    return (
-        <GenreContext.Provider value={{genre, SearchGenre,
-         ListGenre}}>
-            {props.children}
-        </GenreContext.Provider>
-    )
-
-}
+  return (
+    <GenreContext.Provider
+      value={{
+        ListGenre,
+      }}
+    >
+      {props.children}
+    </GenreContext.Provider>
+  );
+};
 
 export default GenreContextProvider;

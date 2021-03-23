@@ -1,19 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { GenreContext } from "../contexts/GenreContext";
 import { SearchContext } from "../contexts/SearchContext";
 
 const GenreOption = () => {
-  const { TogleView } = useContext(SearchContext);
-  const handleButton=()=>{
-      TogleView();
-  }
+ const {ListGenre} = useContext(GenreContext)
+
+ const handleChange=(e)=>{
+    e.preventDefault();
+    
+    console.log("value===> "+e.target.value)
+ }
 
   return (
-    <button
-      onClick={handleButton}
-      className="flex items-center justify-center h-full p-4 font-semibold focus:outline-none hover:text-black hover:bg-white"
-    >
-      Genre
-    </button>
+    <div>
+      <select className="px-5 font-semibold text-white bg-black" onChange={handleChange}>
+        {ListGenre.map((lg) => (
+          <option className="p-2 font-semibold" value={lg.value} key={lg.id}>
+            {lg.genre}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 
