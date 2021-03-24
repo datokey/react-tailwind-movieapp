@@ -32,34 +32,6 @@ const SearchContextProvider = (props) => {
   // set maximal item yang ditampilkan
   const maxResult = "&maxResult=20";
 
-  //searcing title
-  // const searching = (title) =>{
-  //    setLoading(true);
-  //    setDataAvail(false);
-  //    axios.get(url + title )
-  //    .then((res)=>{
-  //         if (res.data.length === "0"){
-  //             setLoading(false);
-  //             setMovie(null);
-  //             setDataAvail(false);
-  //             console.log('tidak ada data')
-  //         }else{
-  //             setLoading(false);
-  //             setMovie(res.data.result);
-  //             setDataAvail(true);
-  //             if(page===1){
-  //                 setDisable(true)
-  //             }else{
-  //                 setDisable(false)
-  //             }
-  //             console.log("ada data");
-  //         }
-
-  //        console.log("judul :===>"+title)
-  //        console.log("data contexts ==>"+res.data);
-  //    })
-  // };
-
   const searching = (title) => {
     setLoading(true);
     fetch(url + title, {
@@ -92,47 +64,17 @@ const SearchContextProvider = (props) => {
       });
   };
 
-  //togle hide or show genre
-  const TogleView = () => {
-    setView(!isView);
-  };
-
-  //hide genre list
-  const HideGenre = () => {
-    setView(false);
-  };
-
   //searchiing genre moveies
-//   const SearchGenre = (gen) => {
-    // setGenre(gen);
-    // setView(false);
-    // setLoading(true);
-    // axios.get(genreUrl + genre + param + page + maxResult)
-    // .then((res) => {
-    //     if (res.data.result === null || res.data.result === "") {
-    //       setDataAvail(false);
-    //     } else {
-    //       setLoading(false);
-    //       setMovie(res.data.result);
-    //       setDataAvail(true);
-    //       if (page === 1) {
-    //         setDisable(true);
-    //       } else {
-    //         setDisable(false);
-    //       }
-    //     }
-
-    //     console.log("ada data" + res.data.result);
-      
-    // });
-    
-//   };
 
   const Genre=(gen)=>{
-        setGenre(gen)
+        setGenre(gen);
     }
 
    useEffect(()=>{
+        if(isDataAvail === false){
+          setDataAvail(true)
+        }
+        console.log("use effect pencarian genre dijalankan")
         setLoading(true);
         fetch(genreUrl + genre + param + page + maxResult, {
           method: "GET",
@@ -144,18 +86,20 @@ const SearchContextProvider = (props) => {
             return res.json();
           })
           .then((data) => {
-            if (data.result === null || data.result === "") {
+            if (data.result === null || data.result === "" || data.result["error"] ) {
               setDataAvail(false);
             } else {
               setDataAvail(true);
               setMovie(data.result);
-              setLoading(false);
               if (page === 1) {
                 setDisable(true);
               } else {
                 setDisable(false);
               }
             }
+
+            console.log("loading berhenti");
+            setLoading(false);
           })
           .catch((err) => {
             setLoading(false);
@@ -174,30 +118,6 @@ const SearchContextProvider = (props) => {
     setPage(page - 1);
   };
 
-  // useEffect(()=>{
-  //     setView(false);
-  //     setLoading(true);
-  //     setDataAvail(false);
-  //     axios.get(genreUrl + genre + param + page + maxPage)
-  //     .then((res) => {
-  //       if (res.data.length === "0") {
-  //         setLoading(false);
-  //         setMovie(null);
-  //         setDataAvail(false);
-  //         console.log("tidak ada data");
-  //       } else {
-  //         setLoading(false);
-  //         setMovie(res.data.result);
-  //         setDataAvail(true);
-  //         if (page === 1) {
-  //           setDisable(true);
-  //         } else {
-  //           setDisable(false);
-  //         }
-  //         console.log("ada data");
-  //       }
-  //     });
-  // },[genre, page])
 
   return (
     <SearchContext.Provider
@@ -206,14 +126,13 @@ const SearchContextProvider = (props) => {
         searching,
         isLoading,
         isDataAvail,
-        TogleView,
         isView,
         isDisable,
         nextPage,
         prevPage,
         page,
-        HideGenre,
         Genre,
+       
       }}
     >
       {props.children}

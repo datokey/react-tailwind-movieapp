@@ -30,22 +30,22 @@ const SearchResult = () => {
   
   return (
     <div className="flex flex-col items-center justify-center">
-      {!movie && isLoading && (
+      {isLoading &&  (
         <div>
           <Loading />
         </div>
       )}
-       {!isDataAvail && !isLoading &&  (
+       {!isDataAvail && (
             <div className="p-3 text-2xl text-white bg-red-500 rounded animate-bounce">
               Film {param} Tidak Ditemukan
             </div>
           )}
-      {!isLoading && isDataAvail && movie && (
+      {!isLoading && movie && isDataAvail && (
         <div className="p-10 pt-10 md:p-28">
           <h1 className="p-5 text-2xl font-bold">Hasil Pencarian {param}</h1>
           <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
             {movie.map((m) => (
-              <div className="overflow-hidden bg-white rounded-lg shadow-2xl">
+              <div className="overflow-hidden bg-white rounded-lg shadow-2xl" key={m.moveId}>
                 <div className="flex flex-col">
                   <div>
                     <img
